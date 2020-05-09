@@ -51,3 +51,12 @@ Avaliable variables:
 `MONGO_DBNAME` - mongoDB database name
 
 `MONGO_PORT` - mongoDB port
+
+
+## Limitations
+
+Due to time boundaries:
+
+1. Postgres: Insert by one row, instead of batch insertion.
+
+2. Single thread app, although we can insert into dbs concurrently at least. 
