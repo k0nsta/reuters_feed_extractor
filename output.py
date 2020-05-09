@@ -1,5 +1,6 @@
 import logging
 import argparse
+from pathlib import Path
 
 import csv
 from datetime import datetime
@@ -47,6 +48,7 @@ def extract_data_pg(date):
     
 
 if __name__ == "__main__":
+    Path('./output').mkdir(exist_ok=True)
     param = get_parser()
     udate = datetime.strptime(param.date, '%m/%d/%Y')
     typedb = param.db_type
