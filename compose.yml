@@ -1,0 +1,46 @@
+version: "3"
+
+networks:
+  dataparser_network:
+    driver: overlay
+
+services:
+  parser:
+    image: parser_reuters
+    build:
+      context: .
+      dockerfile: ./compose/parser.Dockerfile
+    networks:
+      - dataparser_network
+    volumes:
+      - .:/code
+    command: python main.py
+    environment:
+      - TARGET_URL=http://feeds.reuters.com/reuters/topNews
+      - PG_HOST=postgres
+      - PG_PORT=5432
+      - PG_DBNAME=news
+      - PG_USER=postgres
+      - MONGO_HOST=mongo
+      - MONGO_DBNAME=news
+      - MONGO_PORT=27017
+    depends_on:
+      - postgres
+      - mongo
+
+  postgres:
+    image: parser_postgres
+    build:
+      context: .
+      dockerfile: ./compose/pg.Dockerfile
+    networks:
+      - dataparser_network
+    environment:
+      - POSTGRES_DB=news
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  mongo:
+    image: mongo:latest
+    networks:
+      - dataparser_network
+    
