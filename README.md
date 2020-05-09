@@ -10,7 +10,7 @@ This app is fully automatic, you just need to clone this repository and run `doc
 
 ```bash
 git clone https://gist.github.com/k0nsta/reuters_feed_parser
-cd /reuters_feed_parser
+cd reuters_feed_parser/
 docker-compose -f compose.yml up -d
 ```
 
